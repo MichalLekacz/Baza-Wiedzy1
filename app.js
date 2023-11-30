@@ -26,26 +26,27 @@ fetch(filePath)
 
       // Tworzenie elementu p
       var pElement = document.createElement("p");
-      pElement.textContent = item.article;
-
-      // Tworzenie elementu pre i code
-      var preElement = document.createElement("pre");
-      var codeElement = document.createElement("code");
-      //   preElement.classList.add("hljs");
-      codeElement.classList.add("javascript");
-      codeElement.classList.add("hljs");
-      codeElement.classList.add("language-javascript");
-      //   codeElement.setAttribute("data-highlighted", "yes");
-      codeElement.textContent = item.code;
-      preElement.appendChild(codeElement);
+      pElement.innerHTML = item.article;
 
       // Dodawanie elementów do article
       articleElement.appendChild(h2Element);
       articleElement.appendChild(pElement);
-      articleElement.appendChild(preElement);
 
       // Dodawanie article do container
       containerElement.appendChild(articleElement);
+      // Sprawdzenie czy klucz 'code' ma wartość
+      if (item.code) {
+        // Tworzenie elementu pre i code tylko jeśli klucz 'code' ma wartość
+        var preElement = document.createElement("pre");
+        var codeElement = document.createElement("code");
+        codeElement.classList.add("javascript");
+        codeElement.classList.add("hljs");
+        codeElement.classList.add("language-javascript");
+        codeElement.textContent = item.code;
+        preElement.appendChild(codeElement);
+        // Dodawanie elementu pre do article
+        articleElement.appendChild(preElement);
+      }
     });
   })
   .catch((error) => {
